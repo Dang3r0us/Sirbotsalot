@@ -59,4 +59,4 @@ client.on('message', message => {
 	// fun ends here
 });
 keepAlive();
-client.login(process.env.TOKEN);
+client.login(/* Bot token redacted for security pourpses */);
