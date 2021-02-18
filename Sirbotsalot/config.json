@@ -1,0 +1,5 @@
+{
+	"prefix":"!",
+	"messageLog":true,
+	"admins":["me", "someone"]
+}

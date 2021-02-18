@@ -1,0 +1,12 @@
+//ban command
+
+else if (command === 'ban') {
+		if (message.channel.author.hasPermission('BAN_MEMBERS')||message.channel.author.hasPermission('ADMINISTRATOR')){
+			const member = message.mentions.members.first();
+			member.ban(args[1]);
+			message.channel.send(args[0] + ' has been successfully banned.');
+		}
+		else{
+			message.channel.send('You don\'t have permission to use this command');
+		}
+	}
