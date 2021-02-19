@@ -3,20 +3,22 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const keepAlive = require('./server');
-const config = require('./config.json');
+var config = require('./config.json');
 client.on('ready', () => {
 	console.log('I am ready!');
 });
 
 client.on('message', message => {
 	// bot checker starts here
-	console.log(message.content);
 	const args = message.content.slice(config.prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
-	if (message.author.bot) return;
+	if(config.messageLog){
+		if (message.author.bot) return;
+		else console.log(message.content);
+	}
 	/* bot checker end here
 	help stats here */
-	else if (command === 'help') {
+	if (command === 'help') {
 		if (!args.length) {
 			message.channel.send('My prefix is - ' + config.prefix + '\n' + config.prefix + 'help - returns command help\n' + config.prefix + 'help moderation - returns moderation help\n' + config.prefix + 'help fun - returns fun help');
 		}
@@ -56,7 +58,16 @@ client.on('message', message => {
 			message.channel.send("<@" + message.author.id + "> fought " + '<@' + message.mentions.members.first() + '>' + " and tied.");
 		}
 	}
-	// fun ends here
+	/* fun ends here
+	misc. commands start here */
+	else if (command === "log"){
+		if (member.hasPermission('MANAGE_SERVER', { checkAdmin: false, checkOwner: false })) {
+			if(config.logMessages) 	config.logMessages = false;
+			else config.logMessages = true;
+	}
+		else message.send("You don't have the right permissions do run this command.")
+	}
+		
 });
 keepAlive();
 client.login(/* Bot token redacted for security pourpses */);
